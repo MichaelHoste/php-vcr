@@ -76,6 +76,26 @@ class JsonTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function testIterateStringWithCurlyBraces()
+    {
+        $this->iterateAndTest(
+            '[{"para": "}:->"}]',
+            array(
+                array('para' => '}:->'),
+            )
+        );
+    }
+    public function testIterateStringWithEscapedCharacters()
+    {
+        $this->iterateAndTest(
+            '[{"para1": "\""}, {"para2": "\\\\"}]',
+            array(
+                array('para1' => '"'),
+                array('para2' => '\\'),
+            )
+        );
+    }
+
     public function testStoreRecording()
     {
         $expected = array(
